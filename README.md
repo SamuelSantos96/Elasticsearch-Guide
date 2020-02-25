@@ -67,3 +67,14 @@ In front of each line there is a Wrench Icon -> Click "Copy as cURL" -> Open Com
 curl -XGET "http://localhost:9200/.kibana/_search" -H "Content-Type: application/json" -d"{  \"query\": {   \"match_all\": {}  }}"
 ```
 
+## Creating a Shard and Verify Its Current State
+```shell
+PUT /pages
+
+GET /_cluster/health
+
+GET /_cat/indices?v
+
+GET /_cat/shards?v
+```
+
