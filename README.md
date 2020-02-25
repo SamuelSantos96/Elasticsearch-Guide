@@ -184,3 +184,22 @@ POST /products/_update/100
 
 GET products/_doc/100
 ```
+
+# Upserts
+
+```shell
+# Creates a document if none exists 'upsert', if a document already exists performs the 'script'
+POST /products/_update/101
+{
+  "script": {
+    "source": "ctx._source.in_stock++"
+  },
+  "upsert": {
+    "name": "Blender",
+    "price": 399,
+    "in_stock": 5
+  }
+}
+
+GET products/_doc/101
+```
