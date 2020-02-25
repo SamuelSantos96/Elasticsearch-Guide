@@ -46,11 +46,13 @@ localhost:5601
 Go to localhost:5601 -> Navigate to Dev Tools -> Test the following requests:
 
 Documentation: [cluster-nodes](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html)
+
 ```shell
 GET /_cluster/health
 ```
 
 Documentation: [cat-nodes](https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-nodes.html)
+
 ```shell
 GET /_cat/nodes?v
 ```
@@ -63,11 +65,13 @@ GET /_cat/indices?v
 In front of each line there is a Wrench Icon -> Click "Copy as cURL" -> Open Command Prompt and paste the cURL
 
 **NOTE: if the cURL has single quotes change it to double quotes, then escape each inner double quote**
+
 ```shell
 curl -XGET "http://localhost:9200/.kibana/_search" -H "Content-Type: application/json" -d"{  \"query\": {   \"match_all\": {}  }}"
 ```
 
 ## Creating an Index, Verify Its Current State and Deleting It
+
 ```shell
 PUT /pages
 
@@ -104,6 +108,7 @@ POST /products/_doc
 ```
 
 **NOTE: If document doesn't exist, it will create a new one**
+
 ```shell
 PUT /products/_doc/100
 {
@@ -117,4 +122,20 @@ PUT /products/_doc/100
 
 ```shell
 GET /products/_doc/100
+```
+
+## Updating Documents
+
+**NOTE: Documents aren't changed, instead they are replaced!**
+
+```shell
+POST /products/_update/100
+{
+  "doc": {
+    "in_stock": 3,
+    "tags": ["electronics"]
+  }
+}
+
+GET products/_doc/100
 ```
