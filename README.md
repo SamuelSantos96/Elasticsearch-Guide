@@ -58,3 +58,12 @@ GET /_cat/nodes?v
 ```shell
 GET /_cat/indices?v
 ```
+
+## Sending Queries with cURL
+In front of each line there is a Wrench Icon -> Click "Copy as cURL" -> Open Command Prompt and paste the cURL
+
+**NOTE: if the cURL has single quotes change it to double quotes, then escape each inner double quote**
+```shell
+curl -XGET "http://localhost:9200/.kibana/_search" -H "Content-Type: application/json" -d"{  \"query\": {   \"match_all\": {}  }}"
+```
+
