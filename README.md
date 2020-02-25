@@ -3,6 +3,20 @@ Complete Guide to Elasticsearch
 
 Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 
+## Table of Contents
+- [Setup](#setup)
+  - [Elasticsearch](#elasticsearch)
+  - [Kibana](#kibana)
+- [Test Cluster and Nodes](#test-cluster-and-nodes)
+- [Sending Queries with cURL](#sending-queries-with-curl)
+- [Creating an Index, Verify Its Current State and Deleting It](#creating-an-index-verify-its-current-state-and-deleting-it)
+- [Creating and Configuring an Index](#creating-and-configuring-an-index)
+- [Indexing Documents](#indexing-documents)
+- [Retrieving Documents by ID](#retrieving-documents-by-id)
+- [Updating Documents](#updating-documents)
+- [Scripted Updates](#scripted-updates)
+- [Upserts](#upserts)
+
 ## Setup
 
 ### Elasticsearch
@@ -185,7 +199,7 @@ POST /products/_update/100
 GET products/_doc/100
 ```
 
-# Upserts
+## Upserts
 
 ```shell
 # Creates a document if none exists 'upsert', if a document already exists performs the 'script'
