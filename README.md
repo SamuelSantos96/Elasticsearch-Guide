@@ -139,3 +139,48 @@ POST /products/_update/100
 
 GET products/_doc/100
 ```
+
+## Scripted Updates
+
+```shell
+# Decrements the value on 'in_stock'
+POST /products/_update/100
+{
+  "script": {
+    "source": "ctx._source.in_stock--"
+  }
+}
+
+# Sets the value of 'in_stock' to the '10'
+POST /products/_update/100
+{
+  "script": {
+    "source": "ctx._source.in_stock = 10"
+  }
+}
+
+# Sets 'params.quantity' to '4' and subtracts that value to the 'in_stock'
+POST /products/_update/100
+{
+  "script": {
+    "source": "ctx._source.in_stock -= params.quantity",
+    "params": {
+      "quantity": 4
+    }
+  }
+}
+
+# Verifies condition - if 'in_stock' has the value of '0' inserts the value 'noop' on 'op', else decrements the value on 'in_stock'
+POST /products/_update/100
+{
+  "script": {
+    "source": """
+      if(ctx._source.in_stock > 0) {
+        ctx._source.in_stock--;
+      }
+    """
+  }
+}
+
+GET products/_doc/100
+```
