@@ -113,3 +113,8 @@ PUT /products/_doc/100
 }
 ```
 
+## Retrieving Documents by ID
+
+```shell
+GET /products/_doc/100
+```
