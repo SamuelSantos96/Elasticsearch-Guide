@@ -67,7 +67,7 @@ In front of each line there is a Wrench Icon -> Click "Copy as cURL" -> Open Com
 curl -XGET "http://localhost:9200/.kibana/_search" -H "Content-Type: application/json" -d"{  \"query\": {   \"match_all\": {}  }}"
 ```
 
-## Creating a Shard and Verify Its Current State
+## Creating an Index, Verify Its Current State and Deleting It
 ```shell
 PUT /pages
 
@@ -76,5 +76,40 @@ GET /_cluster/health
 GET /_cat/indices?v
 
 GET /_cat/shards?v
+
+DELETE /pages
+```
+
+## Creating and Configuring an Index
+
+```shell
+PUT /products
+{
+  "settings": {
+    "number_of_shards": 2,
+    "number_of_replicas": 2
+  }
+}
+```
+
+## Indexing Documents
+
+```shell
+POST /products/_doc
+{
+  "name": "Coffee Maker",
+  "price": 64,
+  "in_stock": 10
+}
+```
+
+**NOTE: If document doesn't exist, it will create a new one**
+```shell
+PUT /products/_doc/100
+{
+  "name": "Toaster",
+  "price": 49,
+  "in_stock": 4
+}
 ```
 
