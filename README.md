@@ -23,6 +23,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 - [Delete by Query](#delete-by-query)
 - [Batch Processing](#batch-processing)
 - [Importing Data with cURL](#importing-data-with-curl)
+- [Dynamic Mapping](#dynamic-mapping)
 
 ## Setup
 
@@ -357,6 +358,9 @@ GET /products/_search
 ```
 
 ## Importing Data with cURL
+
+Download: [cURL](https://curl.haxx.se/download.html)
+
 On the command prompt type:
 
 ```shell
@@ -371,4 +375,12 @@ On the Kibana Dev Tools check how many products were created:
 
 ```shell
 GET /_cat/shards?v
+```
+
+## Dynamic Mapping
+
+Documentation: [dynamic-mapping](https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-field-mapping.html)
+
+```shell
+GET /products/_mapping
 ```
