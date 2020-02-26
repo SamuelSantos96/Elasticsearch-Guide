@@ -19,6 +19,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 - [Replacing Documents](#replacing-documents)
 - [Deleting Documents](#deleting-documents)
 - [Concurrency Control](#concurrency-control)
+- [Update by Query](#update-by-query)
 
 ## Setup
 
@@ -252,6 +253,23 @@ POST products/_update/100?if_primary_term=2&if_seq_no=14
 {
   "doc": {
     "in_stock": 123
+  }
+}
+
+GET products/_doc/100
+```
+
+## Update by Query
+
+```shell
+# Updates all products based on the query
+POST products/_update_by_query
+{
+  "script": {
+    "source": "ctx._source.in_stock--"
+  },
+  "query": {
+    "match_all": {}
   }
 }
 
