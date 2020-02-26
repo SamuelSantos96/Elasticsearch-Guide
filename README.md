@@ -20,6 +20,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 - [Deleting Documents](#deleting-documents)
 - [Concurrency Control](#concurrency-control)
 - [Update by Query](#update-by-query)
+- [Delete by Query](#delete-by-query)
 
 ## Setup
 
@@ -274,4 +275,16 @@ POST products/_update_by_query
 }
 
 GET products/_doc/100
+```
+
+## Delete by Query
+
+```shell
+# Deletes all products
+POST products/_update_by_query
+{
+  "query": {
+    "match_all": {}
+  }
+}
 ```
