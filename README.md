@@ -16,6 +16,8 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 - [Updating Documents](#updating-documents)
 - [Scripted Updates](#scripted-updates)
 - [Upserts](#upserts)
+- [Replacing Documents](#replacing-documents)
+- [Deleting Documents](#deleting-documents)
 
 ## Setup
 
@@ -229,4 +231,12 @@ PUT /products/_doc/100
 }
 
 GET products/_doc/100
+```
+
+## Deleting Documents
+
+```shell
+DELETE /products/_doc/101
+
+GET products/_doc/101
 ```
