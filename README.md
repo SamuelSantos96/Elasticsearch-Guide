@@ -18,9 +18,10 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 - [Upserts](#upserts)
 - [Replacing Documents](#replacing-documents)
 - [Deleting Documents](#deleting-documents)
-- [Concurrency Control](#concurrency-control)
+- [Optimistic Concurrency Control](#optimistic-concurrency-control)
 - [Update by Query](#update-by-query)
 - [Delete by Query](#delete-by-query)
+- [Batch Processing](#batch-processing)
 
 ## Setup
 
@@ -244,7 +245,7 @@ DELETE /products/_doc/101
 GET products/_doc/101
 ```
 
-## Concurrency Control
+## Optimistic Concurrency Control
 
 ```shell
 GET products/_doc/100
@@ -277,11 +278,74 @@ POST products/_update_by_query
 GET products/_doc/100
 ```
 
+```shell
+# Updates all products based on the query and proceeds even with conflicts
+POST products/_update_by_query
+{
+  "conflicts": "proceed",
+  "script": {
+    "source": "ctx._source.in_stock--"
+  },
+  "query": {
+    "match_all": {}
+  }
+}
+```
+
 ## Delete by Query
 
 ```shell
 # Deletes all products
-POST products/_update_by_query
+POST products/_delete_by_query
+{
+  "query": {
+    "match_all": {}
+  }
+}
+```
+
+## Batch Processing
+
+```shell
+# "index" creates document or replaces if already exists
+# "create" creates document or does nothing if already exists
+POST /_bulk
+{ "index": { "_index": "products", "_id": 200 } }
+{ "name": "Espresso Machine", "price": 199, "in_stock": 5 }
+{ "create": { "_index": "products", "_id": 201 } }
+{ "name": "Milk Frother", "price": 149, "in_stock": 14 }
+
+GET /products/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+```
+
+```shell
+# "update" and "delete" documents
+POST /_bulk
+{ "update": { "_index": "products", "_id": 201 } }
+{ "doc": { "price": 129 } }
+{ "delete": { "_index": "products", "_id": 200 } }
+
+GET /products/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+```
+OR
+```shell
+# "update" and "delete" documents
+POST /products/_bulk
+{ "update": { "_id": 201 } }
+{ "doc": { "price": 129 } }
+{ "delete": { "_id": 200 } }
+
+GET /products/_search
 {
   "query": {
     "match_all": {}
