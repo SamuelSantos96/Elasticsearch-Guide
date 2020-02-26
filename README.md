@@ -25,6 +25,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 - [Importing Data with cURL](#importing-data-with-curl)
 - [Dynamic Mapping](#dynamic-mapping)
 - [Meta Fields](#meta-fields)
+- [Adding Mappings to Existing Indices](#adding-mappings-to-existing-indices)
 
 ## Setup
 
@@ -397,3 +398,18 @@ GET /products/_mapping
 | `_routing` | Stores the value used to route a document to a shard. |
 | `_version` | Stores the internal version of a document. |
 | `_meta` | May be used to store custom data that is left untouched by Elasticsearch (store application specific data). |
+
+## Adding Mappings to Existing Indices
+
+```shell
+PUT /products/_mapping
+{
+  "properties": {
+    "discount": {
+      "type": "double"
+    }
+  }
+}
+
+GET /products/_mapping
+```
