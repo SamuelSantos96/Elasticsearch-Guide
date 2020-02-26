@@ -24,6 +24,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 - [Batch Processing](#batch-processing)
 - [Importing Data with cURL](#importing-data-with-curl)
 - [Dynamic Mapping](#dynamic-mapping)
+- [Meta Fields](#meta-fields)
 
 ## Setup
 
@@ -384,3 +385,15 @@ Documentation: [dynamic-mapping](https://www.elastic.co/guide/en/elasticsearch/r
 ```shell
 GET /products/_mapping
 ```
+
+## Meta Fields
+
+| Meta Fields | Description |
+| --- | --- |
+| `_index` | Contains the name of the index to which a document belongs. |
+| `_id` | Stores the ID of documents. |
+| `_source` | Contains the original JSON object used when indexing a document. |
+| `_field_names` | Contains the name of every field that contains a non-null value. |
+| `_routing` | Stores the value used to route a document to a shard. |
+| `_version` | Stores the internal version of a document. |
+| `_meta` | May be used to store custom data that is left untouched by Elasticsearch (store application specific data). |
