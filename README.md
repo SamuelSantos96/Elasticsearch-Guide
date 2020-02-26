@@ -18,6 +18,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 - [Upserts](#upserts)
 - [Replacing Documents](#replacing-documents)
 - [Deleting Documents](#deleting-documents)
+- [Concurrency Control](#concurrency-control)
 
 ## Setup
 
@@ -239,4 +240,20 @@ GET products/_doc/100
 DELETE /products/_doc/101
 
 GET products/_doc/101
+```
+
+## Concurrency Control
+
+```shell
+GET products/_doc/100
+
+# Controls the update based on 'primary_term' and 'seq_no'
+POST products/_update/100?if_primary_term=2&if_seq_no=14
+{
+  "doc": {
+    "in_stock": 123
+  }
+}
+
+GET products/_doc/100
 ```
