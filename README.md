@@ -22,6 +22,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 - [Update by Query](#update-by-query)
 - [Delete by Query](#delete-by-query)
 - [Batch Processing](#batch-processing)
+- [Importing Data with cURL](#importing-data-with-curl)
 
 ## Setup
 
@@ -306,6 +307,8 @@ POST products/_delete_by_query
 
 ## Batch Processing
 
+Documentation: [docs-bulk](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
+
 ```shell
 # "index" creates document or replaces if already exists
 # "create" creates document or does nothing if already exists
@@ -351,4 +354,21 @@ GET /products/_search
     "match_all": {}
   }
 }
+```
+
+## Importing Data with cURL
+On the command prompt type:
+
+```shell
+cd /Elasticsearch-Guide
+
+curl -H "Content-Type: application/x-ndjson" -XPOST http://localhost:9200/products/_bulk --data-binary "@products-bulk.json"
+```
+
+On the Kibana Dev Tools check how many products were created: 
+
+**NOTE: It might take a couple of minutes before showing all documents assigned**
+
+```shell
+GET /_cat/shards?v
 ```
