@@ -24,8 +24,9 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 - [Batch Processing](#batch-processing)
 - [Importing Data with cURL](#importing-data-with-curl)
 - [Dynamic Mapping](#dynamic-mapping)
-- [Meta Fields](#meta-fields)
-- [Adding Mappings to Existing Indices](#adding-mappings-to-existing-indices)
+  - [Meta Fields](#meta-fields)
+  - [Adding Mappings to Existing Indices](#adding-mappings-to-existing-indices)
+  - [Changing Existing Mappings](#changing-existing-mappings)  
 
 ## Setup
 
@@ -412,4 +413,29 @@ PUT /products/_mapping
 }
 
 GET /products/_mapping
+```
+
+## Changing Existing Mappings
+
+```shell
+PUT /product
+{
+  "mappings": {
+    "dynamic": false,
+    "properties": {
+      "in_stock": {
+        "type": "integer"
+      },
+      "is_active": {
+        "type": "boolean"
+      },
+      "price": {
+        "type": "integer"
+      },
+      "sold": {
+        "type": "long"
+      }
+    }
+  }
+}`
 ```
