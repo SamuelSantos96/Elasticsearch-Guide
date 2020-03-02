@@ -1,35 +1,38 @@
 # Elasticsearch-Guide
+
 Complete Guide to Elasticsearch
 
 Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 
 ## Table of Contents
-- [Setup](#setup)
-  - [Elasticsearch](#elasticsearch)
-  - [Kibana](#kibana)
-- [Test Cluster and Nodes](#test-cluster-and-nodes)
-- [Sending Queries with cURL](#sending-queries-with-curl)
-- [Creating an Index, Verify Its Current State and Deleting It](#creating-an-index-verify-its-current-state-and-deleting-it)
-- [Creating and Configuring an Index](#creating-and-configuring-an-index)
-- [Indexing Documents](#indexing-documents)
-- [Retrieving Documents by ID](#retrieving-documents-by-id)
-- [Updating Documents](#updating-documents)
-- [Scripted Updates](#scripted-updates)
-- [Upserts](#upserts)
-- [Replacing Documents](#replacing-documents)
-- [Deleting Documents](#deleting-documents)
-- [Optimistic Concurrency Control](#optimistic-concurrency-control)
-- [Update by Query](#update-by-query)
-- [Delete by Query](#delete-by-query)
-- [Batch Processing](#batch-processing)
-- [Importing Data with cURL](#importing-data-with-curl)
-- [Dynamic Mapping](#dynamic-mapping)
-  - [Meta Fields](#meta-fields)
-  - [Adding Mappings to Existing Indices](#adding-mappings-to-existing-indices)
-  - [Changing Existing Mappings](#changing-existing-mappings)
-  - [Mapping Parameters](#mapping-parameters)
-  - [Adding Multi-Fields Mappings](#adding-multi-fields-mappings)
-  - [Defining Custom Date Formats](#defining-custom-date-formats)
+
+-   [Setup](#setup)
+    -   [Elasticsearch](#elasticsearch)
+    -   [Kibana](#kibana)
+-   [Test Cluster and Nodes](#test-cluster-and-nodes)
+-   [Sending Queries with cURL](#sending-queries-with-curl)
+-   [Creating an Index, Verify Its Current State and Deleting It](#creating-an-index-verify-its-current-state-and-deleting-it)
+-   [Creating and Configuring an Index](#creating-and-configuring-an-index)
+-   [Indexing Documents](#indexing-documents)
+-   [Retrieving Documents by ID](#retrieving-documents-by-id)
+-   [Updating Documents](#updating-documents)
+-   [Scripted Updates](#scripted-updates)
+-   [Upserts](#upserts)
+-   [Replacing Documents](#replacing-documents)
+-   [Deleting Documents](#deleting-documents)
+-   [Optimistic Concurrency Control](#optimistic-concurrency-control)
+-   [Update by Query](#update-by-query)
+-   [Delete by Query](#delete-by-query)
+-   [Batch Processing](#batch-processing)
+-   [Importing Data with cURL](#importing-data-with-curl)
+-   [Dynamic Mapping](#dynamic-mapping)
+    -   [Meta Fields](#meta-fields)
+    -   [Adding Mappings to Existing Indices](#adding-mappings-to-existing-indices)
+    -   [Changing Existing Mappings](#changing-existing-mappings)
+    -   [Mapping Parameters](#mapping-parameters)
+    -   [Adding Multi-Fields Mappings](#adding-multi-fields-mappings)
+    -   [Defining Custom Date Formats](#defining-custom-date-formats)
+    -   [Picking Up New Fields Without Dynamic Mapping](#picking-up-new-fields-without-dynamic-mapping)
 
 ## Setup
 
@@ -90,6 +93,7 @@ GET /_cat/indices?v
 ```
 
 ## Sending Queries with cURL
+
 In front of each line there is a Wrench Icon -> Click "Copy as cURL" -> Open Command Prompt and paste the cURL
 
 **NOTE: if the cURL has single quotes change it to double quotes, then escape each inner double quote**
@@ -347,7 +351,9 @@ GET /products/_search
   }
 }
 ```
+
 OR
+
 ```shell
 # "update" and "delete" documents
 POST /products/_bulk
@@ -375,7 +381,7 @@ cd /Elasticsearch-Guide
 curl -H "Content-Type: application/x-ndjson" -XPOST http://localhost:9200/products/_bulk --data-binary "@products-bulk.json"
 ```
 
-On the Kibana Dev Tools check how many products were created: 
+On the Kibana Dev Tools check how many products were created:
 
 **NOTE: It might take a couple of minutes before showing all documents assigned**
 
@@ -393,15 +399,15 @@ GET /products/_mapping
 
 ## Meta Fields
 
-| Meta Fields | Description |
-| --- | --- |
-| `_index` | Contains the name of the index to which a document belongs. |
-| `_id` | Stores the ID of documents. |
-| `_source` | Contains the original JSON object used when indexing a document. |
-| `_field_names` | Contains the name of every field that contains a non-null value. |
-| `_routing` | Stores the value used to route a document to a shard. |
-| `_version` | Stores the internal version of a document. |
-| `_meta` | May be used to store custom data that is left untouched by Elasticsearch (store application specific data). |
+| Meta Fields    | Description                                                                                                 |
+| -------------- | ----------------------------------------------------------------------------------------------------------- |
+| `_index`       | Contains the name of the index to which a document belongs.                                                 |
+| `_id`          | Stores the ID of documents.                                                                                 |
+| `_source`      | Contains the original JSON object used when indexing a document.                                            |
+| `_field_names` | Contains the name of every field that contains a non-null value.                                            |
+| `_routing`     | Stores the value used to route a document to a shard.                                                       |
+| `_version`     | Stores the internal version of a document.                                                                  |
+| `_meta`        | May be used to store custom data that is left untouched by Elasticsearch (store application specific data). |
 
 ## Adding Mappings to Existing Indices
 
@@ -447,16 +453,16 @@ PUT /product
 
 Documentation: [mapping-params](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html)
 
-| Mapping Parameters | Description |
-| --- | --- |
-| `coerce` | Converts values to the proper data type. |
-| `copy_to` | Creates custom fields. |
-| `dynamic` | Enables/disables adding fields to documents or inner objects dynamically. |
-| `properties` | Use to wrap field mappings. |
-| `norms` | Enables/disables the storaging of norms for relevance scores. |
-| `format` | Defines the format for date fields. |
-| `null_value` | Replaces NULL values with the specified value. |
-| `fields` | Used to index fields in different ways. |
+| Mapping Parameters | Description                                                               |
+| ------------------ | ------------------------------------------------------------------------- |
+| `coerce`           | Converts values to the proper data type.                                  |
+| `copy_to`          | Creates custom fields.                                                    |
+| `dynamic`          | Enables/disables adding fields to documents or inner objects dynamically. |
+| `properties`       | Use to wrap field mappings.                                               |
+| `norms`            | Enables/disables the storaging of norms for relevance scores.             |
+| `format`           | Defines the format for date fields.                                       |
+| `null_value`       | Replaces NULL values with the specified value.                            |
+| `fields`           | Used to index fields in different ways.                                   |
 
 ## Adding Multi-Fields Mappings
 
@@ -491,6 +497,8 @@ GET product/_mapping
 
 ## Defining Custom Date Formats
 
+Documentation: [built-in-date-formats](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-date-format.html#built-in-date-formats)
+
 ```shell
 PUT /product/_mapping
 {
@@ -507,4 +515,57 @@ PUT /product/_mapping
 cd cd /Elasticsearch-Guide
 
 curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/products/_bulk?pretty" --data-binary "@products-bulk.json"
+```
+
+## Picking Up New Fields Without Dynamic Mapping
+
+```shell
+POST /product/_doc/2000
+{
+  "description": "Test",
+  "discount": 20
+}
+
+
+PUT product/_mapping
+{
+  "properties": {
+    "discount": {
+      "type": "integer"
+    }
+  }
+}
+
+GET /product/_search
+{
+ "query": {
+   "match": {
+     "description": "Test"
+   }
+ }
+}
+```
+
+```shell
+GET /product/_search
+{
+ "query": {
+   "term": {
+     "discount": 20
+   }
+ }
+}
+```
+
+```shell
+POST /product/_update_by_query?conflicts=proceed
+
+GET /product/_search
+{
+ "query": {
+   "term": {
+     "discount": 20
+   }
+ }
+}
 ```
