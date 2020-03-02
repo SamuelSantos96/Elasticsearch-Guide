@@ -28,8 +28,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
   - [Adding Mappings to Existing Indices](#adding-mappings-to-existing-indices)
   - [Changing Existing Mappings](#changing-existing-mappings)
   - [Mapping Parameters](#mapping-parameters)
-
-
+  - [Adding Multi-Fields Mappings](#adding-multi-fields-mappings)
 
 ## Setup
 
@@ -440,10 +439,12 @@ PUT /product
       }
     }
   }
-}`
+}
 ```
 
 ## Mapping Parameters
+
+Documentation: [mapping-params](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html)
 
 | Mapping Parameters | Description |
 | --- | --- |
@@ -455,3 +456,34 @@ PUT /product
 | `format` | Defines the format for date fields. |
 | `null_value` | Replaces NULL values with the specified value. |
 | `fields` | Used to index fields in different ways. |
+
+## Adding Multi-Fields Mappings
+
+```shell
+PUT /product/_mapping
+{
+  "properties": {
+    "description": {
+      "type": "text"
+    },
+    "name": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    },
+    "tags": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
+
+GET product/_mapping
+```
