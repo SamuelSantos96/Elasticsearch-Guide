@@ -26,7 +26,10 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 - [Dynamic Mapping](#dynamic-mapping)
   - [Meta Fields](#meta-fields)
   - [Adding Mappings to Existing Indices](#adding-mappings-to-existing-indices)
-  - [Changing Existing Mappings](#changing-existing-mappings)  
+  - [Changing Existing Mappings](#changing-existing-mappings)
+  - [Mapping Parameters](#mapping-parameters)
+
+
 
 ## Setup
 
@@ -439,3 +442,16 @@ PUT /product
   }
 }`
 ```
+
+## Mapping Parameters
+
+| Mapping Parameters | Description |
+| --- | --- |
+| `coerce` | Converts values to the proper data type. |
+| `copy_to` | Creates custom fields. |
+| `dynamic` | Enables/disables adding fields to documents or inner objects dynamically. |
+| `properties` | Use to wrap field mappings. |
+| `norms` | Enables/disables the storaging of norms for relevance scores. |
+| `format` | Defines the format for date fields. |
+| `null_value` | Replaces NULL values with the specified value. |
+| `fields` | Used to index fields in different ways. |
