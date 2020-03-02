@@ -29,6 +29,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
   - [Changing Existing Mappings](#changing-existing-mappings)
   - [Mapping Parameters](#mapping-parameters)
   - [Adding Multi-Fields Mappings](#adding-multi-fields-mappings)
+  - [Defining Custom Date Formats](#defining-custom-date-formats)
 
 ## Setup
 
@@ -486,4 +487,24 @@ PUT /product/_mapping
 }
 
 GET product/_mapping
+```
+
+## Defining Custom Date Formats
+
+```shell
+PUT /product/_mapping
+{
+  "properties": {
+    "created": {
+      "type": "date",
+      "format": "yyyy/MM/dd HH:mm:ss||yyyy/MM/dd"
+    }
+  }
+}
+```
+
+```shell
+cd cd /Elasticsearch-Guide
+
+curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/products/_bulk?pretty" --data-binary "@products-bulk.json"
 ```
