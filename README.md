@@ -33,6 +33,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
     -   [Adding Multi-Fields Mappings](#adding-multi-fields-mappings)
     -   [Defining Custom Date Formats](#defining-custom-date-formats)
     -   [Picking Up New Fields Without Dynamic Mapping](#picking-up-new-fields-without-dynamic-mapping)
+    -   [Using the Analyze API](#using-the-analyze-api)
 
 ## Setup
 
@@ -567,5 +568,31 @@ GET /product/_search
      "discount": 20
    }
  }
+}
+```
+
+## Using the Analyze API
+
+```shell
+POST _analyze
+{
+  "tokenizer": "standard",
+  "text": "I'm in the mood for drinking semi-dry red wine!"
+}
+```
+
+```shell
+POST _analyze
+{
+  "filter": [ "lowercase" ],
+  "text": "I'm in the mood for drinking semi-dry red wine!"
+}
+```
+
+```shell
+POST _analyze
+{
+  "analyzer": "standard",
+  "text": "I'm in the mood for drinking semi-dry red wine!"
 }
 ```
