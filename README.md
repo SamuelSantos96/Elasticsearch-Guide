@@ -33,8 +33,12 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
     -   [Adding Multi-Fields Mappings](#adding-multi-fields-mappings)
     -   [Defining Custom Date Formats](#defining-custom-date-formats)
     -   [Picking Up New Fields Without Dynamic Mapping](#picking-up-new-fields-without-dynamic-mapping)
-    -   [Using the Analyze API](#using-the-analyze-api)
-    -   [Overview of Character Filters](#overview-of-character-filters)
+-   [Using the Analyze API](#using-the-analyze-api)
+-   [Overview of Character Filters](#overview-of-character-filters)
+-   [Overview of Tokenizers](#overview-of-tokenizers)
+    -   [Word Oriented Tokenizers](#word-oriented-tokenizers)
+    -   [Partial Word Tokenizers](#partial-word-tokenizers)
+    -   [Structured Text Tokenizers](#structured-text-tokenizers)
 
 ## Setup
 
@@ -600,8 +604,41 @@ POST _analyze
 
 ## Overview of Character Filters
 
-| Character Filters             | Description                                                                 |
-| ----------------------------- | --------------------------------------------------------------------------- |
-| `HTML Strip Character Filter` | Strips out HTML elements like <strong> and decodes HTML entities like &amp. |
-| `Mapping Character Filte`     | Replaces values based on a map of keys and values.                          |
-| `Pattern Replace`             | Uses a regular expression to match characters and replaces them.            |
+| Character Filters             | Description                                                                   |
+| ----------------------------- | ----------------------------------------------------------------------------- |
+| `HTML Strip Character Filter` | Strips out HTML elements like \<strong\> and decodes HTML entities like &amp. |
+| `Mapping Character Filte`     | Replaces values based on a map of keys and values.                            |
+| `Pattern Replace`             | Uses a regular expression to match characters and replaces them.              |
+
+## Overview of Tokenizers
+
+### Word Oriented Tokenizers
+
+Typically used for tokenizing full text into individual words.
+
+| Token Filters                             | Description                                                                         |
+| ----------------------------------------- | ----------------------------------------------------------------------------------- |
+| `Standard Tokenizer (standard)`           | Divides text into terms in word boundaries and removes most symbols.                |
+| `Letter Tokenizer (letter)`               | Divides text into terms when encountering a character that is not a letter.         |
+| `Lowercase Tokenizer (lowercase)`         | Works like the letter tokenizer, but also lowercases all terms.                     |
+| `Whitespace Tokenizer (whitespace)`       | Divides text into terms when encountering whitespace characters.                    |
+| `UAX URL Email Tokenizer (uax_url_email)` | Like the stardard tokenizer, but treats URLs and e-mail addresses as single tokens. |
+
+### Partial Word Tokenizers
+
+Breaks up text or words into email fragments. Used for partial word matching.
+
+| Token Filters                   | Description                                                                                                                           |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `N-Gram Tokenizer (ngram)`      | Breaks text into words when encountering certain characters and then emits N-grams of the specified length.                           |
+| `Edge N-Gram Tokenizer (ngram)` | Breaks text into words when encountering certain characters and then emits N-grams of each word beginning from the start of the word. |
+
+### Structured Text Tokenizers
+
+Used for structured text such as e-mail addresses, zip codes, identifiers, etc.
+
+| Token Filters       | Description                                                                                           |
+| ------------------- | ----------------------------------------------------------------------------------------------------- |
+| `Keyword Tokenizer` | No-op tokenizer which outputs the exact same text as a single term.                                   |
+| `Pattern Tokenizer` | Uses a regular expression to split text into terms when matching a word separator.                    |
+| `Path Tokenizer`    | Splits hierarchical values (e.g. files system paths) and emits a term for each component in the tree. |
