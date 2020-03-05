@@ -34,6 +34,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
     -   [Defining Custom Date Formats](#defining-custom-date-formats)
     -   [Picking Up New Fields Without Dynamic Mapping](#picking-up-new-fields-without-dynamic-mapping)
     -   [Using the Analyze API](#using-the-analyze-api)
+    -   [Overview of Character Filters](#overview-of-character-filters)
 
 ## Setup
 
@@ -596,3 +597,11 @@ POST _analyze
   "text": "I'm in the mood for drinking semi-dry red wine!"
 }
 ```
+
+## Overview of Character Filters
+
+| Character Filters             | Description                                                                 |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| `HTML Strip Character Filter` | Strips out HTML elements like <strong> and decodes HTML entities like &amp. |
+| `Mapping Character Filte`     | Replaces values based on a map of keys and values.                          |
+| `Pattern Replace`             | Uses a regular expression to match characters and replaces them.            |
