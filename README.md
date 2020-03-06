@@ -40,6 +40,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
     -   [Partial Word Tokenizers](#partial-word-tokenizers)
     -   [Structured Text Tokenizers](#structured-text-tokenizers)
 -   [Overview of Token Filters](#overview-of-token-filters)
+-   [Overview of Built-in Analyzers](#overview-of-built-in-analyzers)
 
 ## Setup
 
@@ -661,3 +662,19 @@ Documentation: [analysis-tokenfilters](https://www.elastic.co/guide/en/elasticse
 | `Keyword Marker Token Filter (keyword_marker)` | Protects words from being modified by stemmers.                            |
 | `Snowball Token Filter (snowball)`             | Stems words based on a Snowball algorithm.                                 |
 | `Synonym Token Filter (synonym)`               | Adds or replaces tokens based on a synonym configuration file.             |
+
+## Overview of Built-in Analyzers
+
+Documentation: [analysis-lang-analyzer](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-lang-analyzer.html)
+
+Documentation: [analysis-analyzers](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-analyzers.html)
+
+| Analyzers                           | Description                                                                                                                                                |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Standard Analyzer (standard)`      | Divides text into terms using Unicode Text Segmentation (i.e. word boundaries).\nRemoves punctuation, lowercases terms, and optionally removes stop words. |
+| `Simple Analyzer (simple)`          | Divides text into terms when encountering a character that is not a letter. Also lowercases all terms.                                                     |
+| `Stop Analyzer (stop)`              | Like the simple analyzer, but also removes stop words.                                                                                                     |
+| `Language Analyzers (english, ...)` | Language-specific analyzers, e.g. for English or Spanish.                                                                                                  |
+| `Keyword Analyzer (keyword)`        | No-op analyzer that returns the input as a single term.                                                                                                    |
+| `Pattern Analyzer (pattern)`        | Uses a regular expression to match token separators and splits text into terms where matches occur.                                                        |
+| `Whitespace Analyzer (whitespace)`  | Breaks text into terms when encountering a whitespace character.                                                                                           |
