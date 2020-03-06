@@ -39,6 +39,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
     -   [Word Oriented Tokenizers](#word-oriented-tokenizers)
     -   [Partial Word Tokenizers](#partial-word-tokenizers)
     -   [Structured Text Tokenizers](#structured-text-tokenizers)
+-   [Overview of Token Filters](#overview-of-token-filters)
 
 ## Setup
 
@@ -642,3 +643,21 @@ Used for structured text such as e-mail addresses, zip codes, identifiers, etc.
 | `Keyword Tokenizer` | No-op tokenizer which outputs the exact same text as a single term.                                   |
 | `Pattern Tokenizer` | Uses a regular expression to split text into terms when matching a word separator.                    |
 | `Path Tokenizer`    | Splits hierarchical values (e.g. files system paths) and emits a term for each component in the tree. |
+
+## Overview of Token Filters
+
+Documentation: [analysis-tokenfilters](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-tokenfilters.html)
+
+| Token Filters                                  | Description                                                                |
+| ---------------------------------------------- | -------------------------------------------------------------------------- |
+| `Standard Token Filter (standard)`             | Doesn't do anything. Acts as a placeholder for future versions.            |
+| `Lowercase Token Filter (lowercase)`           | Normalizes terms to lowercase.                                             |
+| `Uppercase Token Filter (uppercase)`           | Normalizes terms to uppercase.                                             |
+| `NGram Token Filter (nGram)`                   | Emits N-grams of the specified length based on the provided terms.         |
+| `Edge NGram Token Filter (edgeNGram)`          | Emits N-grams of each term beginning from the start of the term.           |
+| `Stop Token Filter (stop)`                     | Removes stop words.                                                        |
+| `Word Delimiter Token Filter (word_delimiter)` | Splits words into subwords and performs transformations on subword groups. |
+| `Stemmer Token Filter (stemmer)`               | Stems words for the specified language.                                    |
+| `Keyword Marker Token Filter (keyword_marker)` | Protects words from being modified by stemmers.                            |
+| `Snowball Token Filter (snowball)`             | Stems words based on a Snowball algorithm.                                 |
+| `Synonym Token Filter (synonym)`               | Adds or replaces tokens based on a synonym configuration file.             |
