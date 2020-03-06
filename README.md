@@ -43,6 +43,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 -   [Overview of Built-in Analyzers](#overview-of-built-in-analyzers)
 -   [Configuring Built-in Analyzers and Token Filters](#configuring-built-in-analyzers-and-token-filters)
 -   [Creating Custom Analyzers](#creating-custom-analyzers)
+-   [Using Analyzers in Mappings](#using-analyzers-in-mappings)
 
 ## Setup
 
@@ -763,5 +764,58 @@ POST /analyzers_test/_analyze
 {
   "analyzer": "my_analyzer",
   "text": "I'm in the mood for drinking <strong>semi-dry</strong> red wine!"
+}
+```
+
+## Using Analyzers in Mappings
+
+```shell
+PUT /analyzers_test/_mapping
+{
+  "properties": {
+    "description": {
+      "type": "text",
+      "analyzer": "my_analyzer"
+    },
+    "teaser": {
+      "type": "text",
+      "analyzer": "standard"
+    }
+  }
+}
+```
+
+```shell
+POST /analyzers_test/_doc/1
+{
+  "description": "drinking",
+  "teaser": "drinking"
+}
+```
+
+```shell
+GET /analyzers_test/_search
+{
+  "query": {
+    "term": {
+      "teaser": {
+        "value": "drinking"
+      }
+    }
+  }
+}
+```
+
+Following analyzer wom't retrieve any value in this example.
+```shell
+GET /analyzers_test/_search
+{
+  "query": {
+    "term": {
+      "description": {
+        "value": "drinking"
+      }
+    }
+  }
 }
 ```
