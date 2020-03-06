@@ -42,6 +42,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 -   [Overview of Token Filters](#overview-of-token-filters)
 -   [Overview of Built-in Analyzers](#overview-of-built-in-analyzers)
 -   [Configuring Built-in Analyzers and Token Filters](#configuring-built-in-analyzers-and-token-filters)
+-   [Creating Custom Analyzers](#creating-custom-analyzers)
 
 ## Setup
 
@@ -718,5 +719,49 @@ POST /existing_analyzer_config/_analyze
   "tokenizer": "standard",
   "filter": [ "my_stemmer" ],
   "text": "I'm in the mood for drinking semi-dry red wine!"
+}
+```
+
+## Creating Custom Analyzers
+
+```shell
+PUT /analyzers_test
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "english_stop": {
+          "type": "standard",
+          "stopwords": "_english_"
+        },
+        "my_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "char_filter": [
+            "html_strip"
+          ],
+          "filter": [
+            "lowercase",
+            "trim",
+            "my_stemmer"
+          ]
+        }
+      },
+      "filter": {
+        "my_stemmer": {
+          "type": "stemmer",
+          "name": "english"
+        }
+      }
+    }
+  }
+}
+```
+
+```shell
+POST /analyzers_test/_analyze
+{
+  "analyzer": "my_analyzer",
+  "text": "I'm in the mood for drinking <strong>semi-dry</strong> red wine!"
 }
 ```
