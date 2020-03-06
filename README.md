@@ -44,6 +44,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 -   [Configuring Built-in Analyzers and Token Filters](#configuring-built-in-analyzers-and-token-filters)
 -   [Creating Custom Analyzers](#creating-custom-analyzers)
 -   [Using Analyzers in Mappings](#using-analyzers-in-mappings)
+-   [Adding Analyzers to Existing Indices](#adding-analyzers-to-existing-indices)
 
 ## Setup
 
@@ -807,6 +808,7 @@ GET /analyzers_test/_search
 ```
 
 Following analyzer wom't retrieve any value in this example.
+
 ```shell
 GET /analyzers_test/_search
 {
@@ -818,4 +820,24 @@ GET /analyzers_test/_search
     }
   }
 }
+```
+
+## Adding Analyzers to Existing Indices
+
+```shell
+POST /analyzers_test/_close
+
+PUT /analyzers_test/_settings
+{
+  "analysis": {
+    "analyzer": {
+      "french_stop": {
+        "type": "standard",
+        "stopwords": "_french_"
+      }
+    }
+  }
+}
+
+POST /analyzers_test/_open
 ```
