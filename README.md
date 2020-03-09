@@ -46,6 +46,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 -   [Using Analyzers in Mappings](#using-analyzers-in-mappings)
 -   [Adding Analyzers to Existing Indices](#adding-analyzers-to-existing-indices)
 -   [Search Methods](#search-methods)
+-   [Searching with the Request URL](#searching-with-the-request-url)
 
 ## Setup
 
@@ -869,4 +870,18 @@ GET /product/_search
     }
   }
 }
+```
+
+## Searching with the Request URL
+
+Documentation: [query-dsl-query-string-query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html)
+
+```shell
+GET /product/_search?q=*
+
+GET /product/_search?q=name:Lobster
+
+GET /product/_search?q=tags:Meat
+
+GET /product/_search?q=tags:Meat AND name:Tuna
 ```
