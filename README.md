@@ -47,6 +47,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 -   [Adding Analyzers to Existing Indices](#adding-analyzers-to-existing-indices)
 -   [Search Methods](#search-methods)
 -   [Searching with the Request URL](#searching-with-the-request-url)
+-   [Introducing the Query DSL](#introducing-the-query-dsl)
 
 ## Setup
 
@@ -481,7 +482,7 @@ Documentation: [mapping-params](https://www.elastic.co/guide/en/elasticsearch/re
 ## Adding Multi-Fields Mappings
 
 ```shell
-PUT /product/_mapping
+PUT /products/_mapping
 {
   "properties": {
     "description": {
@@ -506,7 +507,7 @@ PUT /product/_mapping
   }
 }
 
-GET product/_mapping
+GET products/_mapping
 ```
 
 ## Defining Custom Date Formats
@@ -514,7 +515,7 @@ GET product/_mapping
 Documentation: [built-in-date-formats](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-date-format.html#built-in-date-formats)
 
 ```shell
-PUT /product/_mapping
+PUT /products/_mapping
 {
   "properties": {
     "created": {
@@ -534,14 +535,14 @@ curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/products/
 ## Picking Up New Fields Without Dynamic Mapping
 
 ```shell
-POST /product/_doc/2000
+POST /products/_doc/2000
 {
   "description": "Test",
   "discount": 20
 }
 
 
-PUT product/_mapping
+PUT products/_mapping
 {
   "properties": {
     "discount": {
@@ -550,7 +551,7 @@ PUT product/_mapping
   }
 }
 
-GET /product/_search
+GET /products/_search
 {
  "query": {
    "match": {
@@ -561,7 +562,7 @@ GET /product/_search
 ```
 
 ```shell
-GET /product/_search
+GET /products/_search
 {
  "query": {
    "term": {
@@ -572,9 +573,9 @@ GET /product/_search
 ```
 
 ```shell
-POST /product/_update_by_query?conflicts=proceed
+POST /products/_update_by_query?conflicts=proceed
 
-GET /product/_search
+GET /products/_search
 {
  "query": {
    "term": {
@@ -847,7 +848,7 @@ POST /analyzers_test/_open
 ## Search Methods
 
 ```shell
-GET /product/_search
+GET /products/_search
 {
   "query": {
     "match": {
@@ -858,11 +859,11 @@ GET /product/_search
 ```
 
 ```shell
-GET /product/_search?q=description:pasta
+GET /products/_search?q=description:pasta
 ```
 
 ```shell
-GET /product/_search
+GET /products/_search
 {
   "query": {
     "query_string": {
@@ -877,11 +878,22 @@ GET /product/_search
 Documentation: [query-dsl-query-string-query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html)
 
 ```shell
-GET /product/_search?q=*
+GET /products/_search?q=*
 
-GET /product/_search?q=name:Lobster
+GET /products/_search?q=name:Lobster
 
-GET /product/_search?q=tags:Meat
+GET /products/_search?q=tags:Meat
 
-GET /product/_search?q=tags:Meat AND name:Tuna
+GET /products/_search?q=tags:Meat AND name:Tuna
+```
+
+## Introducing the Query DSL
+
+```shell
+GET /products/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
 ```
