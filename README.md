@@ -48,6 +48,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 -   [Search Methods](#search-methods)
 -   [Searching with the Request URL](#searching-with-the-request-url)
 -   [Introducing the Query DSL](#introducing-the-query-dsl)
+-   [Relevance Scores](#relevance-scores)
 
 ## Setup
 
@@ -895,5 +896,14 @@ GET /products/_search
   "query": {
     "match_all": {}
   }
+}
+```
+
+## Relevance Scores
+
+```shell
+GET /products/_search?q=name:Lobster
+{
+  "explain": true
 }
 ```
