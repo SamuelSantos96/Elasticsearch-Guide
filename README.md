@@ -45,6 +45,7 @@ Source: [udemy](https://www.udemy.com/course/elasticsearch-complete-guide/)
 -   [Creating Custom Analyzers](#creating-custom-analyzers)
 -   [Using Analyzers in Mappings](#using-analyzers-in-mappings)
 -   [Adding Analyzers to Existing Indices](#adding-analyzers-to-existing-indices)
+-   [Search Methods](#search-methods)
 
 ## Setup
 
@@ -840,4 +841,32 @@ PUT /analyzers_test/_settings
 }
 
 POST /analyzers_test/_open
+```
+
+## Search Methods
+
+```shell
+GET /product/_search
+{
+  "query": {
+    "match": {
+      "description": "pasta"
+    }
+  }
+}
+```
+
+```shell
+GET /product/_search?q=description:pasta
+```
+
+```shell
+GET /product/_search
+{
+  "query": {
+    "query_string": {
+      "query": "description:pasta"
+    }
+  }
+}
 ```
